@@ -12,8 +12,12 @@
     answeredIds: [],
     current: null,
     score: 0,
+    baseScore: 0,
+    bonusScore: 0,
     maxPossible: 0,
     streak: 0,
+    lastBonus: 0,
+    sectionScores: {},
     locked: false,
     draft: null
   };
@@ -91,7 +95,8 @@
   }
 
   function updateHeader() {
-    $("#scoreValue").textContent = String(state.score);
+    const shown = state.view === "home" ? 0 : state.baseScore;
+    $("#scoreValue").textContent = String(shown);
     const left = remainingQuestions();
     const done = state.answeredIds.length;
     const total = done + left.length;
@@ -113,7 +118,7 @@
     }
     $("#homeBtn").classList.toggle("hidden", state.view === "home");
     const chip = $("#recordChip");
-    const beat = state.prevBest != null && state.score > state.prevBest;
+    const beat = state.view !== "home" && state.prevBest != null && state.baseScore > state.prevBest;
     chip.classList.toggle("is-on", beat && state.view !== "home");
   }
 
@@ -172,6 +177,11 @@
     $$("#topicGrid .topic-card").forEach((btn) => {
       btn.addEventListener("click", () => startQuiz("section", btn.dataset.section));
     });
+    state.score = 0;
+    state.baseScore = 0;
+    state.bonusScore = 0;
+    state.maxPossible = 0;
+    state.streak = 0;
     showView("home-view");
   }
 
@@ -181,6 +191,10 @@
     state.path = {};
     state.answeredIds = [];
     state.score = 0;
+    state.baseScore = 0;
+    state.bonusScore = 0;
+    state.lastBonus = 0;
+    state.sectionScores = {};
     state.streak = 0;
     state.locked = false;
     state.current = null;
@@ -453,41 +467,60 @@
   }
 
   function renderMap(q, body, actions) {
-    state.draft = { picked: [], next: 0 };
+    state.draft = { selected: { nile: false, cairo: false } };
     body.innerHTML = '<div class="map-wrap">' + egyptSvg() +
-      '<div class="map-legend"><span>💧 Tik op de Nijl</span><span>📍 Tik op Caïro</span></div></div>';
-    const svg = $(".map-svg", body);
-    function mark(id) {
-      const el = svg.querySelector('[data-target="' + id + '"]');
-      if (el) el.classList.add("picked");
-      const twins = svg.querySelectorAll('[data-target="' + id + '"]');
-      twins.forEach((n) => n.classList.add("picked"));
+      '<div class="map-legend">' +
+      '<button type="button" class="map-pick" data-target="nile">💧 de Nijl</button>' +
+      '<button type="button" class="map-pick" data-target="cairo">📍 Caïro</button>' +
+      '</div></div>';
+    function paint() {
+      ["nile", "cairo"].forEach((id) => {
+        const on = state.draft.selected[id];
+        body.querySelectorAll('[data-target="' + id + '"]').forEach((n) => {
+          n.classList.toggle("picked", on);
+          if (n.getAttribute("aria-pressed") !== null) n.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      });
     }
-    svg.querySelectorAll("[data-target]").forEach((el) => {
-      el.addEventListener("click", () => {
-        if (state.locked) return;
-        const id = el.dataset.target;
-        const expected = q.targets[state.draft.next];
-        if (!expected) return;
-        state.draft.picked.push({ id, ok: id === expected.id });
-        mark(id);
-        state.draft.next += 1;
-        if (state.draft.next >= q.targets.length) submitMap(q);
+    function toggle(id) {
+      if (state.locked || !state.draft.selected.hasOwnProperty(id)) return;
+      state.draft.selected[id] = !state.draft.selected[id];
+      paint();
+    }
+    body.querySelectorAll("[data-target]").forEach((el) => {
+      el.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        toggle(el.getAttribute("data-target"));
+      });
+      el.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          toggle(el.getAttribute("data-target"));
+        }
       });
     });
+    const check = document.createElement("button");
+    check.className = "primary-btn";
+    check.textContent = "Kijk na";
+    check.addEventListener("click", () => submitMap(q));
+    actions.appendChild(check);
   }
 
   function egyptSvg() {
     return '<svg class="map-svg" viewBox="0 0 280 360" role="img" aria-label="Kaart van Egypte">' +
       '<rect class="map-sea" x="0" y="0" width="280" height="360"></rect>' +
       '<path class="map-land" d="M38 78 L150 72 L168 78 L176 92 L210 88 L248 96 L252 118 L232 128 L226 170 L248 210 L240 250 L210 268 L200 318 L150 330 L92 324 L70 280 L48 210 L42 140 Z"></path>' +
-      '<path class="map-nile-hit map-target" data-target="nile" d="M160 320 C155 280, 150 230, 152 180 C154 140, 148 110, 142 92 C138 84, 132 78, 128 70"></path>' +
-      '<path class="map-nile map-target" data-target="nile" d="M160 320 C155 280, 150 230, 152 180 C154 140, 148 110, 142 92 C138 84, 132 78, 128 70"></path>' +
-      '<path class="map-nile map-target" data-target="nile" d="M142 92 L118 64"></path>' +
-      '<path class="map-nile map-target" data-target="nile" d="M142 92 L155 62"></path>' +
-      '<circle class="map-cairo map-target" data-target="cairo" cx="140" cy="96" r="11"></circle>' +
-      '<text x="154" y="102" font-size="13" font-weight="700" fill="#3b2415">Caïro</text>' +
-      '<text x="168" y="180" font-size="13" font-weight="700" fill="#2a7de1">Nijl</text>' +
+      '<g class="map-target" data-target="nile" tabindex="0" role="button" aria-pressed="false" aria-label="de Nijl">' +
+      '<path class="map-nile-hit" d="M158 325 C154 280, 150 230, 151 185 C152 145, 146 118, 140 98"></path>' +
+      '<path class="map-nile" d="M158 325 C154 280, 150 230, 151 185 C152 145, 146 118, 140 98"></path>' +
+      '<path class="map-nile" d="M140 98 L112 62"></path>' +
+      '<path class="map-nile" d="M140 98 L158 60"></path>' +
+      '<text x="78" y="190" font-size="14" font-weight="700" fill="#1E4E8C">Nijl</text>' +
+      '</g>' +
+      '<g class="map-target" data-target="cairo" tabindex="0" role="button" aria-pressed="false" aria-label="Caïro">' +
+      '<circle class="map-cairo" cx="186" cy="84" r="16"></circle>' +
+      '<text x="206" y="90" font-size="14" font-weight="700" fill="#1A1A1A">Caïro</text>' +
+      '</g>' +
       '<text x="90" y="50" font-size="12" fill="#2b6cb0">Middellandse Zee</text>' +
       '<text x="200" y="200" font-size="12" fill="#2b6cb0">Rode Zee</text>' +
       "</svg>";
@@ -496,11 +529,16 @@
   function showFeedback(q, got, max, extra) {
     const el = $("#feedback");
     el.className = "feedback show " + (got === max && max > 0 ? "ok" : got > 0 ? "" : "bad");
-    const msg = got === max && max > 0
-      ? "Goed zo! +" + got + " punten"
-      : got > 0
-        ? "Gedeeltelijk juist: +" + got + " van " + max + " punten"
-        : "Nog niet juist.";
+    let msg;
+    if (got === max && max > 0) {
+      msg = state.lastBonus
+        ? "Goed zo! +" + got + ", +" + state.lastBonus + " reeksbonus!"
+        : "Goed zo! +" + got + " punten";
+    } else if (got > 0) {
+      msg = "Gedeeltelijk juist: +" + got + " van " + max + " punten";
+    } else {
+      msg = "Nog niet juist.";
+    }
     el.innerHTML = '<div class="points-pop">' + msg + "</div><p>" + escapeHtml(q.explanation || extra || "") + "</p>";
     el.setAttribute("tabindex", "-1");
     addNextButton();
@@ -518,20 +556,24 @@
   }
 
   function award(q, got, max) {
-    state.score += got;
+    state.lastBonus = 0;
+    state.baseScore += got;
     state.maxPossible += max;
+    if (q && q.section && max > 0) {
+      if (!state.sectionScores[q.section]) state.sectionScores[q.section] = { score: 0, max: 0 };
+      state.sectionScores[q.section].score += got;
+      state.sectionScores[q.section].max += max;
+    }
     if (max > 0 && got === max) {
       state.streak += 1;
       if (state.streak > 0 && state.streak % DATA.streakEvery === 0) {
-        state.score += DATA.streakBonus;
-        const el = $("#feedback");
-        if (el) {
-          el.innerHTML += '<p class="points-pop">Reeks! +' + DATA.streakBonus + " bonuspunten</p>";
-        }
+        state.lastBonus = DATA.streakBonus;
+        state.bonusScore += DATA.streakBonus;
       }
     } else if (max > 0) {
       state.streak = 0;
     }
+    state.score = state.baseScore + state.bonusScore;
     if (!state.answeredIds.includes(q.id)) state.answeredIds.push(q.id);
     state.locked = true;
     updateHeader();
@@ -579,20 +621,23 @@
     const selected = state.draft.selected;
     let got = 0;
     const max = questionMax(q);
+    let correctPicked = 0;
+    let wrongPicked = 0;
     opts.forEach((opt, i) => {
       const btn = $('.choice[data-i="' + i + '"]');
       const on = selected.has(i);
       if (opt.correct && on) {
-        got += DATA.pointsPerItem;
+        correctPicked += 1;
         btn.classList.add("correct");
       } else if (opt.correct) {
         btn.classList.add("correct");
       } else if (on) {
+        wrongPicked += 1;
         btn.classList.add("wrong");
       }
       btn.disabled = true;
     });
-    got = Math.max(0, got);
+    got = Math.max(0, correctPicked - wrongPicked) * DATA.pointsPerItem;
     award(q, got, max);
     showFeedback(q, got, max);
   }
@@ -667,32 +712,52 @@
   function submitMap(q) {
     const max = questionMax(q);
     let got = 0;
-    state.draft.picked.forEach((p) => {
-      if (p.ok) got += DATA.pointsPerItem;
-      document.querySelectorAll('[data-target="' + p.id + '"]').forEach((n) => {
-        n.classList.add(p.ok ? "correct" : "wrong");
+    q.targets.forEach((target) => {
+      const ok = !!state.draft.selected[target.id];
+      if (ok) got += DATA.pointsPerItem;
+      document.querySelectorAll('[data-target="' + target.id + '"]').forEach((n) => {
+        n.classList.add(ok ? "correct" : "wrong");
       });
     });
     award(q, got, max);
     showFeedback(q, got, max);
   }
 
+  function percentFor(score, max) {
+    if (!max) return 0;
+    if (score >= max) return 100;
+    return Math.min(99, Math.round((score / max) * 100));
+  }
+
+  function rememberSection(store, sectionId, score, max) {
+    if (!max) return false;
+    const pct = percentFor(score, max);
+    const prev = store.sectionBest[sectionId];
+    const prevPct = prev ? percentFor(Math.min(prev.score, prev.max || prev.score), prev.max || max) : -1;
+    if (!prev || pct > prevPct) {
+      store.sectionBest[sectionId] = { score, max, pct };
+      return true;
+    }
+    return false;
+  }
+
   function finishQuiz() {
-    const score = state.score;
+    const score = state.baseScore;
+    const bonus = state.bonusScore;
     const max = state.maxPossible || countMaxForRun();
-    const pct = max ? Math.round((score / max) * 100) : 0;
+    const pct = percentFor(score, max);
     const badge = badgeFor(pct);
     const store = loadStore();
     store.sectionBest = store.sectionBest || {};
     const beforeNamed = namedEarnedIds(store.sectionBest);
     let newRecord = false;
     if (state.mode === "section") {
-      const prev = store.sectionBest[state.sectionId];
-      if (!prev || score > prev.score) {
-        newRecord = !prev || score > prev.score;
-        store.sectionBest[state.sectionId] = { score, max, pct };
-      }
+      newRecord = rememberSection(store, state.sectionId, score, max);
     } else {
+      Object.keys(state.sectionScores).forEach((sid) => {
+        const part = state.sectionScores[sid];
+        rememberSection(store, sid, part.score, part.max);
+      });
       const prev = store.overallBest;
       if (!prev || score > prev.score) {
         store.overallBest = { score, max, pct };
@@ -719,6 +784,7 @@
       "<h2>Klaar: " + escapeHtml(title || "") + "</h2>" +
       '<div class="end-score">' + score + " / " + max + "</div>" +
       "<p>Dat is " + pct + "%</p>" +
+      (bonus ? "<p>Reeksbonus: +" + bonus + " (telt niet mee voor je medaille)</p>" : "") +
       (newRecord ? '<p class="record">Nieuwe topscore!</p>' : "<p>Topscore blijft bewaard in deze browser.</p>") +
       '<div class="earned-row">' + topicMedal + namedHtml + "</div>" +
       '<div class="actions" style="justify-content:center">' +

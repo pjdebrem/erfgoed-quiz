@@ -31,7 +31,7 @@ window.ERFGOED_DATA = {
     { id: "muur-nu", num: 9, title: "Chinese Muur vandaag", emoji: "📸", blurb: "Toerisme, restauratie en de maan." , accent: "#5C6B7A" },
     { id: "muur-tf", num: 10, title: "Chinese Muur: waar of niet?", emoji: "✅", blurb: "Acht beweringen." , accent: "#5C6B7A" },
     { id: "china-nu", num: 11, title: "China vandaag", emoji: "🐼", blurb: "Werelddeel, hoofdstad en buren." , accent: "#1D7A5F" },
-    { id: "zuilen", num: 12, title: "Griekse zuilen", emoji: "🏛️", blurb: "Dorisch, Ionisch, Korintisch en Belgische gebouwen." , accent: "#1E4E8C" },
+    { id: "zuilen", num: 12, title: "Griekse zuilen", emoji: "🏛️", blurb: "Dorisch, Ionisch, Korinthisch en Belgische gebouwen." , accent: "#1E4E8C" },
     { id: "rome", num: 13, title: "Oud Rome", emoji: "🛣️", blurb: "Heirbaan, aquaduct en meer." , accent: "#8B6914" },
     { id: "pompei", num: 14, title: "Pompeï", emoji: "🌋", blurb: "Kernwoorden bij de foto's." , accent: "#6B4A2A" }
   ],
@@ -41,7 +41,7 @@ window.ERFGOED_DATA = {
       section: "erfgoed",
       type: "fill",
       title: "Vul aan",
-      prompt: "Sleep of tik de woorden in de juiste open plekken. Elk woord past op één plaats.",
+      prompt: "Tik op een woord en dan op de juiste plek. Elk woord past op één plaats.",
       text: "Erfgoed kan verschillende vormen aannemen: gebouw, voorwerp, {{0}}, traditie…\n\nMen bewaart cultureel of natuurlijk erfgoed omdat een hele {{1}} het belangrijk vindt. Het is vaak iets van {{2}}, maar het kan ook iets van {{3}} zijn. Het wordt {{4}} van generatie op generatie.\n\n{{5}} is erfgoed dat men beschouwt als onvervangbaar, uniek en eigendom van de hele wereld.\n\n{{6}} heeft een {{7}} van werelderfgoed gemaakt… Want wat we nu {{8}}, bepaalt wat mensen later over ons zullen weten.",
       words: ["bewaren", "natuurgebied", "vroeger", "werelderfgoed", "UNESCO", "lijst", "doorgegeven", "vandaag", "groep mensen"],
       answers: ["natuurgebied", "groep mensen", "vroeger", "vandaag", "doorgegeven", "werelderfgoed", "UNESCO", "lijst", "bewaren"],
@@ -164,7 +164,7 @@ window.ERFGOED_DATA = {
       image: "images/machu-picchu.jpg",
       imageAlt: "Machu Picchu",
       options: [
-        { text: "de Maya", correct: false },
+        { text: "de Maya's", correct: false },
         { text: "de Romeinen", correct: false },
         { text: "de Inca", correct: true }
       ],
@@ -247,7 +247,7 @@ window.ERFGOED_DATA = {
       imageAlt: "El Castillo, de grote piramide van Chichén Itzá",
       options: [
         { text: "de Inca", correct: false },
-        { text: "de Maya", correct: true },
+        { text: "de Maya's", correct: true },
         { text: "de Grieken", correct: false }
       ],
       explanation: "Chichén Itzá is een beroemde Mayastad op het schiereiland Yucatán in Mexico."
@@ -274,7 +274,7 @@ window.ERFGOED_DATA = {
       type: "mc",
       requires: { culture: "maya", site: "chichen" },
       title: "Chichén Itzá",
-      prompt: "Alle treden samen zijn er ongeveer evenveel als…",
+      prompt: "De piramide heeft ongeveer 365 treden. Waar doet dat aantal aan denken?",
       image: "images/chichen-itza.jpg",
       imageAlt: "De piramide van Chichén Itzá",
       options: [
@@ -282,7 +282,7 @@ window.ERFGOED_DATA = {
         { text: "dagen in een jaar", correct: true },
         { text: "uren in een dag", correct: false }
       ],
-      explanation: "De treden van El Castillo komen ongeveer overeen met het aantal dagen in een jaar. De Maya's waren knappe sterrenwachtkundigen."
+      explanation: "De piramide van Kukulcán heeft ongeveer 365 treden, ongeveer evenveel als de dagen in een jaar. De Maya's waren knappe sterrenkundigen."
     },
 
     {
@@ -386,17 +386,16 @@ window.ERFGOED_DATA = {
       section: "status-egypte",
       type: "multi",
       title: "Hoe zagen goden eruit?",
-      prompt: "Hoe stelden de Egyptenaren hun goden voor? Kies alle juiste antwoorden.",
+      prompt: "Hoe stelden de Egyptenaren hun goden voor? Er zijn 3 juiste antwoorden.",
       image: "images/sfinx.jpg",
       imageAlt: "De Sfinx, een wezen met een mensenhoofd en een leeuwenlijf",
       options: [
         { text: "als mens", correct: true },
-        { text: "als halfmens", correct: true },
         { text: "als dier", correct: true },
-        { text: "als half dier", correct: true },
-        { text: "alleen als levende farao's van vlees en bloed, nooit als beeld", correct: false }
+        { text: "half mens, half dier", correct: true },
+        { text: "alleen als levende farao's, nooit als beeld", correct: false }
       ],
-      explanation: "Goden konden als mens, dier, halfmens of half dier worden afgebeeld. De sfinx zelf is half mens, half leeuw."
+      explanation: "Egyptische goden verschenen in al deze vormen: als mens, als dier en als half mens, half dier. De sfinx zelf is half mens, half leeuw."
     },
     {
       id: "s4-piramide-wie",
@@ -452,7 +451,7 @@ window.ERFGOED_DATA = {
       section: "muur-toen",
       type: "multi",
       title: "Drie belangrijke functies",
-      prompt: "Wat waren de drie belangrijkste functies van de Chinese Muur? Kies precies de juiste drie.",
+      prompt: "Wat waren de drie belangrijkste functies van de Chinese Muur? Er zijn 3 juiste antwoorden.",
       image: "images/chinese-muur.jpg",
       imageAlt: "De Chinese Muur die over de bergen slingert",
       options: [
@@ -470,10 +469,10 @@ window.ERFGOED_DATA = {
       section: "muur-toen",
       type: "fill",
       title: "Mensen bij de muur, vroeger",
-      prompt: "Vul in met de woorden over het verleden.",
+      prompt: "Tik op een woord en dan op de juiste plek. Vul in met de woorden over het verleden.",
       image: "images/chinese-muur.jpg",
       imageAlt: "Wachttorens op de Chinese Muur",
-      text: "In het oude China bewaakten {{0}} de muur. Zij hielden uitzicht op mogelijke {{1}}. Met {{2}} waarschuwden ze elkaar als er gevaar was. {{3}} moesten vaak als {{4}} meehelpen bij de zware bouw. Soms leefden ook {{5}} in de buurt van de wachtposten, bij hun familie.",
+      text: "In het oude China bewaakten {{0}} de muur. Zij hielden uitzicht op mogelijke {{1}}. Met {{2}} waarschuwden ze elkaar als er gevaar was. {{3}} moesten vaak als {{4}} meehelpen bij de zware bouw. Soms leefden ook {{5}} in de buurt van de wachtposten, bij hun gezin.",
       words: ["soldaten", "aanvallers", "rooksignalen", "misdadigers", "straf", "vrouwen"],
       answers: ["soldaten", "aanvallers", "rooksignalen", "misdadigers", "straf", "vrouwen"],
       explanation: "Soldaten bewaakten de muur en keken uit naar aanvallers. Met rooksignalen gaven ze alarm. Misdadigers moesten vaak als straf mee bouwen. Vrouwen en families leefden soms bij de wachtposten."
@@ -484,7 +483,7 @@ window.ERFGOED_DATA = {
       section: "muur-extra",
       type: "multi",
       title: "Natuurlijke grenzen",
-      prompt: "De verdedigingslinie gebruikte ook natuurlijke grenzen. Welke horen daarbij?",
+      prompt: "De verdedigingslinie gebruikte ook natuurlijke grenzen. Er zijn 3 juiste antwoorden.",
       image: "images/chinese-muur.jpg",
       imageAlt: "De Chinese Muur in een bergachtig landschap",
       options: [
@@ -536,7 +535,7 @@ window.ERFGOED_DATA = {
       image: "images/nile.jpg",
       imageAlt: "De Nijl en de delta, gezien vanuit de ruimte",
       pairs: [
-        { left: "Overstroming", right: "Elk jaar in de zomer trad de Nijl buiten haar oevers." },
+        { left: "Overstroming", right: "Elk jaar in de zomer trad de Nijl buiten zijn oevers." },
         { left: "Vruchtbaar slib", right: "Zwarte modder die achterbleef na het water; daarom noemden de Egyptenaren hun land \"Kemet\" (het zwarte land)." },
         { left: "Papyrus", right: "Plant langs de rivier waarvan men een soort papier maakte, maar ook manden en bootjes." },
         { left: "Transport", right: "Met boten vervoerde men graan en zware stenen; stroomafwaarts naar het noorden, met de wind in het zeil naar het zuiden." },
@@ -553,12 +552,12 @@ window.ERFGOED_DATA = {
       image: "images/rosetta.jpg",
       imageAlt: "De Steen van Rosetta in het British Museum",
       items: [
-        { label: "Egypte — In het oude Egypte schreef men met beeldtekens.", order: 1 },
-        { label: "Hiërogliefen — Die beeldtekens noemen we hiërogliefen.", order: 2 },
-        { label: "Schrijvers — Geschoolde schrijvers konden ze lezen en schrijven.", order: 3 },
-        { label: "Steen van Rosetta — Dankzij deze steen konden geleerden de hiërogliefen later weer ontcijferen.", order: 4 }
+        { label: "Egyptenaren schreven met hiërogliefen.", order: 1 },
+        { label: "Schrijvers beitelden dezelfde tekst in drie schriften op een steen.", order: 2 },
+        { label: "De steen werd in 1799 gevonden.", order: 3 },
+        { label: "Champollion kon dankzij de Steen van Rosetta de hiërogliefen ontcijferen in 1822.", order: 4 }
       ],
-      explanation: "In Egypte gebruikte men hiërogliefen. Schrijvers kenden die tekens. Veel later hielp de Steen van Rosetta (met dezelfde tekst in meerdere schriften) om ze opnieuw te lezen."
+      explanation: "Eerst schreven de Egyptenaren met hiërogliefen. Op de Steen van Rosetta stond dezelfde tekst in drie schriften (hiërogliefen, Demotisch en Grieks). Franse soldaten vonden de steen in 1799 bij Rosetta (Rashid). In 1822 ontcijferde Jean-François Champollion daardoor de hiërogliefen."
     },
     {
       id: "s7-papyrus",
@@ -626,7 +625,7 @@ window.ERFGOED_DATA = {
       section: "egypte-nu",
       type: "multi",
       title: "Infofiche Egypte",
-      prompt: "Welke landen of gebieden grenzen aan Egypte? Kies alle juiste antwoorden.",
+      prompt: "Welke landen of gebieden grenzen aan Egypte? Er zijn 3 juiste antwoorden.",
       options: [
         { text: "Libië", correct: true },
         { text: "Soedan", correct: true },
@@ -655,7 +654,7 @@ window.ERFGOED_DATA = {
       section: "egypte-nu",
       type: "multi",
       title: "Infofiche Egypte",
-      prompt: "Aan welke zeeën ligt Egypte? Kies beide juiste antwoorden.",
+      prompt: "Aan welke zeeën ligt Egypte? Er zijn 2 juiste antwoorden.",
       options: [
         { text: "de Middellandse Zee", correct: true },
         { text: "de Rode Zee", correct: true },
@@ -683,7 +682,7 @@ window.ERFGOED_DATA = {
       section: "egypte-nu",
       type: "map",
       title: "Kaart van Egypte",
-      prompt: "Tik eerst op de rivier de Nijl en daarna op de stad Caïro.",
+      prompt: "Duid de Nijl en Caïro aan. Je mag in eender welke volgorde tikken, en je keuze nog veranderen voor je op Kijk na tikt.",
       targets: [
         { id: "nile", label: "de Nijl" },
         { id: "cairo", label: "Caïro" }
@@ -696,7 +695,7 @@ window.ERFGOED_DATA = {
       section: "muur-nu",
       type: "fill",
       title: "De muur vandaag",
-      prompt: "Vul in met de woorden over nu.",
+      prompt: "Tik op een woord en dan op de juiste plek. Deze zin gaat over wat er nu met de muur gebeurt (land, bezoekers en herstel).",
       image: "images/chinese-muur.jpg",
       imageAlt: "Bezoekerspad op de Chinese Muur",
       text: "De Chinese Muur ligt in {{0}}. Vandaag komen vooral heel veel bezoekers voor het {{1}}. Op verschillende plaatsen gebeurt er {{2}}, zodat de muur bewaard blijft.",
@@ -708,28 +707,28 @@ window.ERFGOED_DATA = {
       id: "s9-functie",
       section: "muur-nu",
       type: "mc",
-      title: "Functie vandaag",
-      prompt: "Wat is vandaag de belangrijkste functie van de Chinese Muur?",
+      title: "Wat doen bezoekers vandaag?",
+      prompt: "Wat doen de meeste mensen vandaag bij de Chinese Muur? (Dit is iets anders dan de invuloefening hierboven.)",
       image: "images/chinese-muur.jpg",
       imageAlt: "De Chinese Muur als bezoekersattractie",
       options: [
-        { text: "Een toeristische attractie en werelderfgoed dat men bezoekt en beschermt", correct: true },
-        { text: "De enige grensbescherming van het leger", correct: false },
-        { text: "Een startbaan voor vliegtuigen", correct: false },
-        { text: "Een ondergrondse metro", correct: false }
+        { text: "Er als toerist naartoe gaan, wandelen en foto's maken", correct: true },
+        { text: "De grens bewaken met rooksignalen", correct: false },
+        { text: "Misdadigers straffen door te laten bouwen", correct: false },
+        { text: "Een nieuwe muur bouwen tot aan de maan", correct: false }
       ],
-      explanation: "Vandaag is de muur vooral een beroemde bezienswaardigheid en UNESCO-werelderfgoed."
+      explanation: "Vandaag komen mensen vooral kijken en wandelen. De muur is geen vesting meer tegen legers, maar een beroemde bezienswaardigheid."
     },
     {
-      id: "s9-maan",
+      id: "s9-wandelen",
       section: "muur-nu",
       type: "tf",
-      title: "Zichtbaar vanaf de maan?",
-      prompt: "Je kunt de Chinese Muur met het blote oog zien vanaf de maan.",
+      title: "Wandelen op de hele muur?",
+      prompt: "Kunnen bezoekers vandaag over de hele Chinese Muur wandelen, van het ene uiteinde tot het andere?",
       image: "images/chinese-muur.jpg",
-      imageAlt: "De Chinese Muur vanuit de lucht gezien is al een dunne lijn",
+      imageAlt: "Een hersteld stuk van de Chinese Muur waar bezoekers wandelen",
       answer: false,
-      explanation: "Dat is niet waar. De muur is maar een paar meter breed, veel te smal om vanaf de maan te zien."
+      explanation: "Nee. Alleen bepaalde stukken zijn hersteld en open voor bezoekers. Andere delen zijn vervallen, moeilijk bereikbaar of afgesloten."
     },
 
     {
@@ -900,17 +899,17 @@ window.ERFGOED_DATA = {
       id: "s12-korintisch",
       section: "zuilen",
       type: "mc",
-      title: "Korintische zuil",
-      prompt: "Hoe herken je een Korintische zuil?",
+      title: "Korinthische zuil",
+      prompt: "Hoe herken je een Korinthische zuil?",
       image: "images/korintisch.jpg",
-      imageAlt: "Een Korintisch kapiteel versierd met bladeren",
+      imageAlt: "Een Korinthisch kapiteel versierd met bladeren",
       imageContain: true,
       options: [
         { text: "Het kapiteel is rijk versierd met acanthusbladeren", correct: true },
         { text: "Het kapiteel is helemaal glad en zonder versiering", correct: false },
         { text: "De zuil heeft geen schacht", correct: false }
       ],
-      explanation: "Korintisch is de meest versierde Griekse orde. Bovenaan zie je krullende acanthusbladeren."
+      explanation: "Korinthisch is de meest versierde Griekse orde. Bovenaan zie je krullende acanthusbladeren."
     },
     {
       id: "s12-halle-stad",
@@ -933,16 +932,16 @@ window.ERFGOED_DATA = {
       section: "zuilen",
       type: "multi",
       title: "Halle aux Draps",
-      prompt: "Welke zuilenordes zie je aan de voorgevel van de Halle aux Draps?",
+      prompt: "Welke zuilenordes zie je aan de voorgevel van de Halle aux Draps? Kies beide juiste antwoorden.",
       image: "images/halle-draps.jpg",
       imageAlt: "Voorgevel van de Halle aux Draps met twee rijen zuilen",
       options: [
-        { text: "Dorisch, op het gelijkvloers", correct: true },
+        { text: "Toscaans, op het gelijkvloers (een eenvoudige zuil, lijkt op Dorisch)", correct: true },
         { text: "Ionisch, op de verdieping", correct: true },
-        { text: "alleen Korintisch", correct: false },
+        { text: "alleen Korinthisch", correct: false },
         { text: "geen enkele klassieke zuil", correct: false }
       ],
-      explanation: "De renaissancegevel heeft twee orden boven elkaar: Dorisch beneden en Ionisch boven. Dat was een typische volgorde."
+      explanation: "Het Waalse erfgoed inventaris beschrijft Toscaanse zuilen beneden en Ionische zuilen boven. Toscaans is een eenvoudige Romeinse orde en lijkt op Dorisch, maar heeft wel een voetstuk. Bron: Connaître la Wallonie (SPW)."
     },
     {
       id: "s12-msk",
@@ -955,7 +954,7 @@ window.ERFGOED_DATA = {
       options: [
         { text: "Ionisch", correct: true },
         { text: "Dorisch", correct: false },
-        { text: "Korintisch", correct: false }
+        { text: "Korinthisch", correct: false }
       ],
       explanation: "Aan de monumentale ingang staan vier gecanneleerde Ionische zuilen (met krullen bovenaan). Binnen is er ook een Dorische galerij, maar de voorgevel is Ionisch."
     },
@@ -968,11 +967,11 @@ window.ERFGOED_DATA = {
       image: "images/sint-jacob.jpg",
       imageAlt: "De classicistische voorgevel van Sint-Jacob-op-de-Koudenberg",
       options: [
-        { text: "Korintisch", correct: true },
+        { text: "Korinthisch", correct: true },
         { text: "Dorisch", correct: false },
         { text: "Ionisch", correct: false }
       ],
-      explanation: "De voorgevel lijkt op een Grieks-Romeinse tempel, met gecanneleerde zuilen en Korintische kapitelen (acanthusbladeren)."
+      explanation: "De voorgevel lijkt op een Grieks-Romeinse tempel, met gecanneleerde zuilen en Korinthische kapitelen (acanthusbladeren)."
     },
 
     {
@@ -997,7 +996,7 @@ window.ERFGOED_DATA = {
           { src: "images/munten.jpg", alt: "Romeinse muntstukken" }
         ]
       },
-      explanation: "Romeinen bouwden heirbanen (als snelwegen), aquaducten (waterleidingen) en hypocaustum (vloerverwarming). In steden woonden mensen in insulae (appartementen). Ze betaalden met munten en vonden de weg via mijlpalen."
+      explanation: "Een heirbaan was de Romeinse snelweg. Een aquaduct is een waterleiding. Hypocaustum is vloerverwarming. Insulae zijn appartementsgebouwen. Men betaalde met muntstukken. Een mijlpaal was een wegwijzer die ook de afstand aangaf."
     },
 
     {
