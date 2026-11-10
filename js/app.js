@@ -18,6 +18,14 @@
     draft: null
   };
 
+
+  function imgTag(src, alt, extraClass) {
+    const fallback = (window.ERFGOED_IMAGES && window.ERFGOED_IMAGES[src]) || "";
+    const cls = extraClass ? ' class="' + extraClass + '"' : "";
+    const fb = fallback ? ' data-fallback="' + fallback + '" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback;}"' : "";
+    return '<img' + cls + ' src="' + src + '" alt="' + escapeHtml(alt || "") + '"' + fb + '>';
+  }
+
   function shuffle(list) {
     const a = list.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -213,11 +221,11 @@
     let extraImgs = "";
     if (q.extras && q.extras.images) {
       extraImgs = '<div class="grid" style="margin:0.6rem 0">' + q.extras.images.map((im) =>
-        '<img class="q-image" src="' + im.src + '" alt="' + escapeHtml(im.alt) + '">'
+        imgTag(im.src, im.alt, "q-image")
       ).join("") + "</div>";
     }
     const img = q.image
-      ? '<img class="q-image' + (q.imageContain ? " contain" : "") + '" src="' + q.image + '" alt="' + escapeHtml(q.imageAlt || "") + '">'
+      ? imgTag(q.image, q.imageAlt || "", "q-image" + (q.imageContain ? " contain" : ""))
       : "";
     root.innerHTML = '<article class="question-card">' +
       '<div class="kicker">' + (section ? section.emoji + " " + section.title : "") + "</div>" +

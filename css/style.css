@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Baloo 2";
   src: url("../fonts/baloo-2-latin-400-normal.woff2") format("woff2"),
-       url("../fonts/baloo-2-latin-ext-400-normal.woff2") format("woff2");
+       url("https://cdn.jsdelivr.net/npm/@fontsource/baloo-2@5.3.0/files/baloo-2-latin-400-normal.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +9,7 @@
 @font-face {
   font-family: "Baloo 2";
   src: url("../fonts/baloo-2-latin-700-normal.woff2") format("woff2"),
-       url("../fonts/baloo-2-latin-ext-700-normal.woff2") format("woff2");
+       url("https://cdn.jsdelivr.net/npm/@fontsource/baloo-2@5.3.0/files/baloo-2-latin-700-normal.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("../fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"),
-       url("../fonts/atkinson-hyperlegible-latin-ext-400-normal.woff2") format("woff2");
+       url("https://cdn.jsdelivr.net/npm/@fontsource/atkinson-hyperlegible@5.3.0/files/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("../fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"),
-       url("../fonts/atkinson-hyperlegible-latin-ext-700-normal.woff2") format("woff2");
+       url("https://cdn.jsdelivr.net/npm/@fontsource/atkinson-hyperlegible@5.3.0/files/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
