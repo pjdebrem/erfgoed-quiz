@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Oefensite over erfgoed, UNESCO, oud Egypte, de Chinese Muur, Maya's en Inca's, Griekse zuilen, oud Rome en Pompeï.">
+  <title>Erfgoedquiz – oefen en verbeter je topscore</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Naar de inhoud</a>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">🏺</div>
+      <div>
+        <h1>Erfgoedquiz</h1>
+        <p>Oefen de blaadjes tot je topscore</p>
+      </div>
+    </div>
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-label" id="progressLabel">Vraag</div>
+      <div class="progress-bar" aria-hidden="true"><span id="progressBar"></span></div>
+    </div>
+    <div class="header-stats">
+      <div class="score-pill" aria-live="polite">Score: <span id="scoreValue">0</span></div>
+      <div class="record-chip" id="recordChip">Nieuwe topscore!</div>
+      <div class="streak-pill" id="streakPill">Reeks</div>
+      <button class="text-btn hidden" id="homeBtn" type="button">Overzicht</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="home-view" class="view">
+      <div class="hero">
+        <h2>Welkom in de schatkamer van het erfgoed</h2>
+        <p>Alle oefeningen over erfgoed, UNESCO, oud Egypte, de Chinese Muur, Maya’s en Inca’s, Griekse zuilen, oud Rome en Pompeï. Bij elk juist antwoord krijg je punten. Je topscore blijft bewaard op dit toestel, zodat je die kunt verbeteren.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" id="playAllBtn" type="button">Alles oefenen</button>
+          <a class="ghost-btn" href="credits.html" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit">Bronnen van de foto’s</a>
+          <button class="ghost-btn" id="resetScoresBtn" type="button">Scores wissen</button>
+        </div>
+        <p class="best-overall" id="bestOverall"></p>
+      </div>
+      <h3 style="margin:0 0 0.5rem;color:var(--color-primary)">Jouw schatkamer</h3>
+      <div class="named-grid" id="namedGrid"></div>
+      <div class="grid" id="topicGrid"></div>
+    </section>
+
+    <section id="quiz-view" class="view hidden"></section>
+    <section id="end-view" class="view hidden"></section>
+  </main>
+  <script src="js/questions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
